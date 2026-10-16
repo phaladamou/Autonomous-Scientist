@@ -9,7 +9,6 @@ on:
 jobs:
   relay:
     runs-on: ubuntu-latest
-    # Seuls les OWNER/MEMBER/COLLABORATOR peuvent déclencher l'agent
     if: >-
       (
         github.event_name == 'issues' &&
@@ -30,10 +29,7 @@ jobs:
           ORCHESTRATOR_PAT: ${{ secrets.ORCHESTRATOR_PAT }}
           TARGET_REPO: ${{ github.repository }}
           EVENT_NAME: ${{ github.event_name }}
-          ISSUE_NUMBER: ${{ github.event.issue.number || github.event.comment.issue_url }}
-          PAYLOAD: ${{ toJSON(github.event) }}
         run: |
-          # Extraire le numéro d'issue
           if [ "$EVENT_NAME" = "issues" ]; then
             ISSUE_NUM="${{ github.event.issue.number }}"
           else
@@ -41,7 +37,6 @@ jobs:
             ISSUE_NUM="${ISSUE_NUM##*/}"
           fi
 
-          # Déclencher l'orchestrateur privé
           curl -X POST \
             -H "Authorization: token $ORCHESTRATOR_PAT" \
             -H "Accept: application/vnd.github+json" \
