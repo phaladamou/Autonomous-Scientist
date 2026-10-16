@@ -1,0 +1,12 @@
+[project]
+name = "autonomous-scientist"
+version = "0.1.0"
+description = "An autonomous scientist that turns research questions into hypotheses, experiments, simulations, and new discoveries."
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+authors = [{ name = "Autonomous-Scientist contributors" }]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
